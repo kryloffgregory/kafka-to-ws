@@ -1,0 +1,25 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Kafka messages</h1>
+<!-- 1 -->
+<div id="results"></div>
+<script type="text/javascript">
+    var resDiv = document.getElementById("results");
+    resDiv.textContent = ""
+
+    // 2
+    var exampleSocket = new WebSocket("ws://localhost:8080/ws?topic=topic1&start=2");
+
+    // 3
+    var update = function(){
+        exampleSocket.onmessage = function (event) {
+            var results = event.data;
+            resDiv.textContent = resDiv.textContent+"\n"+results.toString()
+        }
+    };
+    window.setTimeout(update);
+</script>
+</body>
+</html>
