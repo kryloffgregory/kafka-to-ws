@@ -19,11 +19,11 @@ var brokers = []string{"127.0.0.1:9094"}
 func main () {
 	router := mux.NewRouter()
 	//router.HandleFunc("/", rootHandler).Methods("GET")
-	router.HandleFunc("/ws", wsHandler)
+	router.HandleFunc("/demo/binance/ws", wsHandler)
 
 	srv := &http.Server{
 		Handler:      router,
-		Addr:         "127.0.0.1:8080",
+		Addr:         "0.0.0.0:80",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
@@ -31,7 +31,7 @@ func main () {
 }
 
 func parseParams(params url.Values) (topic string, start, stop int64, err error) {
-	topic = params.Get("topic")
+	topic = params.Get("symbol")
 	if topic == "" {
 		return "", 0, 0, errors.New("bad topic param")
 	}
